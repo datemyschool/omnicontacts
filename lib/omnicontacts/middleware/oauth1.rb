@@ -20,9 +20,11 @@ module OmniContacts
         @consumer_secret = consumer_secret
         @callback_path = options[:callback_path] || "/contacts/#{class_name}/callback"
         @token_prop_name = "#{base_prop_name}.oauth_token"
+        @force_https = options[:force_https] || false
       end
 
       def callback
+        @env["force_https"] = true if @force_https
         host_url_from_rack_env(@env) + callback_path
       end
 

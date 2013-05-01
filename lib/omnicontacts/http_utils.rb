@@ -41,7 +41,9 @@ module OmniContacts
     end
 
     def scheme env
-      if env['HTTPS'] == 'on'
+      if env['force_https']
+        'https'
+      elsif env['HTTPS'] == 'on'
         'https'
       elsif env['HTTP_X_FORWARDED_SSL'] == 'on'
         'https'

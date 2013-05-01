@@ -21,6 +21,7 @@ module OmniContacts
         @client_secret = client_secret
         @redirect_path = options[:redirect_path] || "/contacts/#{class_name}/callback"
         @ssl_ca_file = options[:ssl_ca_file]
+        @force_https = options[:force_https] || false
       end
 
       def request_authorization_from_user
@@ -28,6 +29,7 @@ module OmniContacts
       end
 
       def redirect_uri
+        @env['force_https'] = true if @force_https
         host_url_from_rack_env(@env) + redirect_path
       end
 
